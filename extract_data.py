@@ -1,9 +1,8 @@
-from lib2to3.fixes.fix_print import parend_expr
 from playwright.sync_api import sync_playwright
 
 
 def get_data(url):
-    parent_xpath = '//*[@id = "app"]/div[2]/div/div/div[3]/div[1]/div/div[2]/div/div[2]'
+    parent_xpath = '//*[@id="app"]/div[2]/div/div/div[3]/div[1]/div/div[2]/div/div[2]'
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
         page = browser.new_page()
@@ -25,3 +24,9 @@ def get_data(url):
 
         browser.close()
         return data
+
+
+# Example usage
+url = "https://www.hemmings.com/auction/1958-jaguar-xk150-oceanside-ca-788724"
+data = get_data(url)
+print(data)
