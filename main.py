@@ -21,14 +21,16 @@ def transform_url(url):
 
 
 def fetch_gallery_data(url):
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch()
-        page = browser.new_page()
-        page.goto(url)
-        response = page.content()
-        browser.close()
-
-    return response
+    headers = {key: config["LISTING_HEADERS"].get(
+        key, '') for key in config["LISTING_HEADERS"]}
+    with open('cookie.txt', 'r') as file:
+        cookie = file.read().strip()
+    headers["Cookie"] = cookie
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {}
 
 
 def add_data_to_file(file_path):

@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+import time
 
 
 def get_data(url):
@@ -7,7 +8,6 @@ def get_data(url):
         browser = playwright.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto(url, timeout=60000, wait_until='load')
-
         # Get the parent element's children
         sections = page.query_selector_all(f"xpath={parent_xpath}/*")
         data = {}
@@ -26,7 +26,7 @@ def get_data(url):
         return data
 
 
-# Example usage
-url = "https://www.hemmings.com/auction/1958-jaguar-xk150-oceanside-ca-788724"
-data = get_data(url)
-print(data)
+# # Example usage
+# url = "https://www.hemmings.com/auction/1958-jaguar-xk150-oceanside-ca-788724"
+# data = get_data(url)
+# print(data)
