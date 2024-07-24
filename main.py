@@ -55,7 +55,12 @@ def add_data_to_file(file_path):
             else:
                 logger.error("URL not found in item")
 
-                # Save the modified data back to the file
+            # Remove specified keys
+            keys_to_remove = ['vin', 'seller', 'body', 'abstract']
+            for key in keys_to_remove:
+                if key in item:
+                    del item[key]
+    # Save the modified data back to the file
     with open('data.json', 'w') as file:
         json.dump(data, file, indent=4)
     return Path('data.json').resolve()
