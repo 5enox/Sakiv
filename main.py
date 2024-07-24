@@ -74,8 +74,7 @@ def fetch_hemings_data():
     params = {key: config["PARAMS"].get(key, '') for key in config["PARAMS"]}
     headers = {key: config["HEADERS"].get(
         key, '') for key in config["HEADERS"]}
-    # params["per_page"] = str(int(params.get('page', '1')) * 30)
-    params["per_page"] = '1'
+    params["per_page"] = str(int(params.get('page', '1')) * 30)
     try:
         response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()
