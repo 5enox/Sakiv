@@ -20,15 +20,6 @@ def transform_url(url):
     return f'{base_url}/v2/auctions/listing/{auction_id}/gallery-images'
 
 
-# def fetch_gallery_data(url):
-#     headers = {key: config["LISTING_HEADERS"].get(
-#         key, '') for key in config["LISTING_HEADERS"]}
-#     # headers["Cookie"] = cookie
-#     response = requests.get(url, headers=headers)
-#     if response.status_code == 200:
-#         return response.json()
-#     else:
-#         return {}
 def fetch_gallery_data(url):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
