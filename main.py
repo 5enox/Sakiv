@@ -1,9 +1,11 @@
+
 import logging
 import json
 import configparser
 import requests
 from pathlib import Path
 from extract_data import get_data
+from get_cookies import get_cookies
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
@@ -11,6 +13,8 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger(__name__)
 config = configparser.ConfigParser()
 config.read("config.ini")
+
+cookies = get_cookies()
 
 
 def transform_url(url):
@@ -25,7 +29,7 @@ def fetch_gallery_data(url):
     with open('cookie.txt', 'r') as file:
         cookie = file.read().strip()
     headers["Cookie"] = cookie
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, cookies=cookies)
     if response.status_code == 200:
         return response.json()
     else:
